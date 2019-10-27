@@ -4,15 +4,20 @@
             <ul class="list-group">
               <a href="{{route('thread.index')}}" class="list-group-item">
                 All thread
-                <span class="badge">14</span>
+                <span class="badge">{{ $threadCount }}</span>
               </a>
+              @forelse ($threads as $thread)
               <a href="#" class="list-group-item">
-                PHP
-                <span class="badge">2</span>
+                    {{ $thread->subject }}
+                    
               </a>
+              @empty
               <a href="#" class="list-group-item">
-                Python
-                <span class="badge">1</span>
+                    No thread yet
+                    <span class="badge">2</span>
               </a>
+              @endforelse
+
+
             </ul>
           </div>

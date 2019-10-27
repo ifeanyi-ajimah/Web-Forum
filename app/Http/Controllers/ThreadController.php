@@ -11,7 +11,7 @@ class ThreadController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('index1','index');;
+        $this->middleware('auth')->except('index1','index');
     }
 
     /**
@@ -22,15 +22,19 @@ class ThreadController extends Controller
 
     public function index1()
     {
+        $threadCount = Thread::count();
+        // dd($threadCount);
         $threads = Thread::paginate(15);
-        return view('welcome',compact('threads'));
+        return view('welcome',compact('threads','threadCount'));
     }
 
 
     public function index()
     {
+
+        $threadCount = Thread::count();
         $threads = Thread::paginate(15);
-        return view('thread.index',compact('threads'));
+        return view('thread.index',compact('threads', 'threadCount'));
     }
 
     /**
@@ -55,7 +59,6 @@ class ThreadController extends Controller
         'subject' => 'required|string|max:40',
         'type' => 'required|string|max:100',
         'thread' => 'required|string|max:250',
-
          ]);
         $data = $request->except(['_token']);
         $data['user_id'] = Auth::id();
@@ -72,8 +75,11 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show( $thread)
-    {   $thread = Thread::find($thread);
-        return view('thread.show',compact('thread'));
+    {
+        $threads = Thread::paginate(15);
+        $threadCount = Thread::count();
+        $thread = Thread::find($thread);
+        return view('thread.show',compact('thread','threadCount','threads'));
     }
 
     /**
@@ -96,7 +102,8 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {    //dd($request->all());
+    {
+
         $this->validate($request, [
             'subject' => 'required|string|max:40',
             'type' => 'required|string|max:100',
@@ -104,12 +111,12 @@ class ThreadController extends Controller
 
              ]);
         $data = $request->except(['_token']);
-        //$data['user_id'] = Auth::id();
         $thread = Thread::find($id);
 
-        if(auth()->user()->id !== $data['user_id'] ){
-            abort(401, 'unauthorized');
-        }
+        // if(auth()->user()->id !== $data['user_id'] ){
+        //     abort(401, 'unauthorized');
+        // }
+        $this->authorize('update', $data['user_id']);
 
         $thread->update($data);
         return redirect()->route('thread.show',$thread->id)->with('status','UPDATED');
@@ -124,9 +131,11 @@ class ThreadController extends Controller
      */
     public function destroy(Thread $thread)
     {
-        if(auth()->user()->id !== $thread->user_id){
-            abort(401, 'unauthorized');
-        }
+        // if(auth()->user()->id !== $thread->user_id){
+        //     abort(401, 'unauthorized');
+        // }
+
+        $this->authorize('delete', $thread); //using policy to authorise
         $thread->delete();
         return redirect()->route('thread.index')->with('status','Deleted');
     }

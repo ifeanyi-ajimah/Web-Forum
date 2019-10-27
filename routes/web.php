@@ -29,3 +29,12 @@ Route::post('reply/destroy/{comment}', 'CommentController@destCommentReply')->na
 Route::post('reply/update/{comment}', 'CommentController@updCommentReply')->name('replycomment.update');
 Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name('markAsSolution');
 
+Route::get('user/profile/{username}', 'UserProfileController@index')->name('user_profile');
+
+
+
+
+
+
+
+

@@ -37,10 +37,11 @@
         @if($thread->solution == $comment->id)
             <button class="btn btn-success pull-right"> Solution</button>
         @endif
-
         @else
-        @auth()
-        @if( auth()->user()->id == $thread->user_id)
+
+        @can('update', $thread)
+        {{--  @auth()
+        @if( auth()->user()->id == $thread->user_id)  --}}
 
         {{-- <form action="{{ route('markAsSolution') }}" method="post">
                 @csrf
@@ -50,8 +51,11 @@
         </form>
          --}}
          <button class="btn btn-success pull-right " onclick="markAsSolution('{{ $thread->id }}', '{{ $comment->id }}', this)"> Mark as solutionn</button>
-        @endif
-        @endauth
+
+        {{--  @endif
+        @endauth  --}}
+        @endcan
+
         @endif
         <br>
           <lead>Comment By</lead>:  <lead>  {{ $comment->user->name }}</lead>
