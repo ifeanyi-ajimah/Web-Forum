@@ -1,3 +1,10 @@
+<style>
+
+    .pans a{
+        color: white;
+    }
+</style>
+
 <div class="list-group">
 
     @forelse($threads as $thread)
@@ -11,8 +18,8 @@
 
 
 
-        <div class="panel panel-success ">
-            <div class="panel panel-heading">
+        <div class="panel panel-primary ">
+            <div class="panel panel-heading pans">
 			<a href="{{route('thread.show',$thread->id)}}"> <h3 class="list-group-heading">{{$thread->subject}}</h3> </a>
 
             </div>

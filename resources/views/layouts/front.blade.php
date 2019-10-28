@@ -6,11 +6,14 @@
   <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}">
   <!-- <link rel="stylesheet" type="text/css" href="https://bootswatch.com/paper/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  @yield('styles')
 </head>
 <body>
 	@include('layouts.partials.navbar')
 <br><br>
   @yield('banner')
+
 
 	<div class="container">
     @include('includes.messages')
@@ -25,7 +28,7 @@
 
           <div class="col-md-9">
             <div class="row content-heading"> <h4> @yield('heading') </h4></div>
-            <div class="jumbotron">
+            <div>
                @yield('content')
             </div>
           </div>
