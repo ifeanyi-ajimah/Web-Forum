@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     use CommentableTrait;
-    
+
     protected $fillable = ['subject','thread','type'];
 
     public function user()
@@ -19,5 +19,7 @@ class Thread extends Model
     {
         return $this->morphMany('App\Comment', 'commentable')->latest();
     }
+
+  
 
 }

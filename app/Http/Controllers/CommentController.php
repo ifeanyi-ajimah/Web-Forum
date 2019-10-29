@@ -17,11 +17,9 @@ class CommentController extends Controller
             'body' => 'required'
         ]);
 
-           $thread->addComment($request->body);
-           $commentor = auth()->user();
-           //dd($commentor);
-            //dd($thread->user);
-            $thread->user->notify(new RepliedToThread ($thread, $commentor));
+        $thread->addComment($request->body);
+        $commentor = auth()->user();
+        $thread->user->notify(new RepliedToThread ($thread, $commentor));
             // $user = User::find(3);
             // $user->notify(new RepliedToThread());
 

@@ -38,7 +38,7 @@
                                         @foreach ( auth()->user()->unreadNotifications as $notification)
 
 
-                                             {{ $notification->data['commentor']['name'] }} commented on your thread {{ $notification->data['thread'] ['subject'] }} <br> <br>
+                                             {{ $notification->data['commentor']['name'] }} commented on your thread <a href="{{ route('thread.show' , $notification->data['thread'] ['id']  ) }}"> {{ $notification->data['thread'] ['subject'] }}</a> <br> <br>
 
 
                                         @endforeach
