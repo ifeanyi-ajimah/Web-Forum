@@ -31,7 +31,6 @@ class ThreadController extends Controller
 
     public function index()
     {
-
         $threadCount = Thread::count();
         $threads = Thread::paginate(15);
         return view('thread.index',compact('threads', 'threadCount'));
@@ -47,12 +46,7 @@ class ThreadController extends Controller
         return view('thread.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $this->validate($request, [

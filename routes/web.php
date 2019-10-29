@@ -32,6 +32,14 @@ Route::post('/thread/mark-as-solution','ThreadController@markAsSolution')->name(
 Route::get('user/profile/{username}', 'UserProfileController@index')->name('user_profile');
 
 
+Route::get('test',function(){
+    $notifications = auth()->user()->unreadNotifications;
+    foreach($notifications as $notification ){
+
+        dd($notification);
+        // dd($notification->data['user'] ['name']);
+    }
+});
 
 
 

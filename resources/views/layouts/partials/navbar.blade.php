@@ -14,7 +14,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class=" navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
@@ -26,8 +26,31 @@
                             </li>
                         @endif
                     @else
+
+                    <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                             <span class="glyphicon glyphicon-globe"></span>    Notifications <span class="badge"> {{  count( auth()->user()->unreadNotifications ) }}</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                <p class="dropdown-item">
+                                        @foreach ( auth()->user()->unreadNotifications as $notification)
+
+
+                                             {{ $notification->data['commentor']['name'] }} commented on your thread {{ $notification->data['thread'] ['subject'] }} <br> <br>
+
+
+                                        @endforeach
+                                </p>
+
+                            </div>
+                        </li>
+
+
+
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
