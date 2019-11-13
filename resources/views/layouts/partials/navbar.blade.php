@@ -27,7 +27,7 @@
                         @endif
                     @else
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown"  id="markAsRead">
                             <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                              <span class="glyphicon glyphicon-globe"></span>    Notifications <span class="badge"> {{  count( auth()->user()->unreadNotifications ) }}</span>
                             </a>
@@ -36,10 +36,7 @@
 
                                 <p class="dropdown-item">
                                         @foreach ( auth()->user()->unreadNotifications as $notification)
-
-
                                              {{ $notification->data['commentor']['name'] }} commented on your thread <a href="{{ route('thread.show' , $notification->data['thread'] ['id']  ) }}"> {{ $notification->data['thread'] ['subject'] }}</a> <br> <br>
-
 
                                         @endforeach
                                 </p>
